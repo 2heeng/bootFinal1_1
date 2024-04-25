@@ -5,9 +5,20 @@
 
 <div layout:fragment="content">
 
+    <!--    여기는 게시판 목록-->
+
+
+    <!--<div th:text="${responseDTO}"></div>-->
+
+
+    <!--</div>-->
+
     <div class="row mt-3">
+
+        <!--조건 검색-->
         <form action="/board/list" method="get">
             <div class="col">
+                <!--요청시 요청하는 페이지의 크기 정보를 넣어놓음-->
                 <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -27,131 +38,110 @@
                     </div>
                 </div>
             </div>
+
         </form>
-    </div>
-
-
-    <div class="row mt-3">
-        <div class="col">
-
-            <div class="card">
-                <div class="card-header">
-                    Board List
-                </div>
-                <div class="card-body" >
-                    <h5 class="card-title">Board List </h5>
-
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Bno</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Writer</th>
-                            <th scope="col">RegDate</th>
-                        </tr>
-                        </thead>
-
-                        <tbody th:with="link = ${pageRequestDTO.getLink()}">
-
-                        <tr th:each="dto:${responseDTO.dtoList}"  >
+        <!--  게시판 목록      -->
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        게시판 목록
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Board List</h5>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Bno</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Writer</th>
+                                <th scope="col">RegDate</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="dto:${responseDTO.dtoList}">
                             <th scope="row">[[${dto.bno}]]</th>
                             <td>
-                                <a th:href="|@{/board/read(bno =${dto.bno})}&${link}|"> [[${dto.title}]] </a>
+                                <a th:href="|@{/board/read(bno =${dto.bno})}&${link}|" class="text-decoration-none"> [[${dto.title}]] </a>
+
                             </td>
                             <td>[[${dto.writer}]]</td>
                             <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
-                        </tr>
+                            </tbody>
+                        </table>
+                        <div class="float-end">
+                            <ul class="pagination flex-wrap">
 
-
-                        </tbody>
-                    </table>
-
-                    <div class="float-end">
-                        <ul class="pagination flex-wrap">
-
-                            <li class="page-item" th:if="${responseDTO.prev}">
-                                <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
-                            </li>
-
-                            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-                                <li th:class="${responseDTO.page == i}?'page-item active':'page-item'" >
-                                    <a class="page-link"  th:data-num="${i}">[[${i}]]</a>
+                                <li class="page-item" th:if="${responseDTO.prev}">
+                                    <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
                                 </li>
-                            </th:block>
 
-                            <li class="page-item" th:if="${responseDTO.next}">
-                                <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
-                            </li>
-                        </ul>
+                                <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                                    <li th:class="${responseDTO.page == i}?'page-item active':'page-item'" >
+                                        <a class="page-link"  th:data-num="${i}">[[${i}]]</a>
+                                    </li>
+                                </th:block>
+
+                                <li class="page-item" th:if="${responseDTO.next}">
+                                    <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!--card body-->
+
+                </div> <!--card-->
+            </div> <!--col-->
+        </div> <!--end row-->
+
+
+        <!--ㅡmodal dialog(팝업창과 비슷함)-->
+        <div class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">입력 글 확인</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
-
-                </div><!--end card body-->
-            </div><!--end card-->
-        </div><!-- end col-->
-    </div><!-- end row-->
-
-    <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="modal-body">
+                        <p>정상적으로 입력되었습니다.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<!--                        <button type="button" class="btn btn-primary">Save changes</button>-->
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
+    <script layout:fragment="script" th:inline="javascript">
 
-</div>
+        document.querySelector(".pagination").addEventListener("click", function (e) {
+            e.preventDefault()
+            e.stopPropagation()
 
+            const target = e.target
 
-<script layout:fragment="script" th:inline="javascript">
+            if (target.tagName !== 'A') {
+                return
+            }
 
-    document.querySelector(".pagination").addEventListener("click", function (e) {
-        e.preventDefault()
-        e.stopPropagation()
+            const num = target.getAttribute("data-num")
 
-        const target = e.target
+            const formObj = document.querySelector("form")
 
-        if(target.tagName !== 'A') {
-            return
+            formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+
+            formObj.submit();
+
+        }, false)
+
+        //show modal
+        const result = [[${result}]]
+
+        const modal = new bootstrap.Modal(document.querySelector(".modal"))
+        if(result){
+            modal.show()
         }
 
-        const num = target.getAttribute("data-num")
-
-        const formObj = document.querySelector("form")
-
-        formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
-
-        formObj.submit();
-
-    },false)
-
-    document.querySelector(".clearBtn").addEventListener("click", function (e){
-        e.preventDefault()
-        e.stopPropagation()
-
-        self.location ='/board/list'
-
-    },false)
-
-    //show modal
-    const result = [[${result}]]
-
-    const modal = new bootstrap.Modal(document.querySelector(".modal"))
-
-    if(result){
-        modal.show()
-    }
-
-
-
-</script>
+    </script>
