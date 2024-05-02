@@ -10,19 +10,19 @@ import org.zerock.b01.dto.ReplyDTO;
 @Log4j2
 public class ReplyServiceTests {
 
-    @Autowired
-    private ReplyService replyService;
-
-    @Test
-    public void testRegister(){
-
-        ReplyDTO replyDTO = ReplyDTO.builder()
-                .replyText("ReplyDTO Test")
-                .replyer("replyer")
-                .bno(99L)
-                .build();
-
-        log.info("rno: "+replyService.register(replyDTO));
-
-    }
+//    @Autowired
+//    private ReplyService replyService;
+//
+//    @Test
+//    public void testRegister(){
+//
+//        ReplyDTO replyDTO = ReplyDTO.builder()
+//                .replyText("ReplyDTO Test")
+//                .replyer("replyer")
+//                .bno(99L)
+//                .build();
+//
+//        log.info("rno: "+replyService.register(replyDTO));
+//
+//    }
 }

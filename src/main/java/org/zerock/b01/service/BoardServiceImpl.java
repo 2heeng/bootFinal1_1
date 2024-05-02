@@ -1,5 +1,6 @@
 package org.zerock.b01.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,14 @@ import java.util.stream.Collectors;
 @Service
 @Log4j2
 @Transactional
+@RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
-    @Autowired
-    private ModelMapper modelMapper;
 
-    @Autowired
-    private BoardRepository boardRepository;
+    private final ModelMapper modelMapper;
+
+
+    private final BoardRepository boardRepository;
 
     @Override
     public Long register(BoardDTO boardDTO) {
