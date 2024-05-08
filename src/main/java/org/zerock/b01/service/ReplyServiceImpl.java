@@ -38,7 +38,7 @@ public class ReplyServiceImpl implements  ReplyService{
 //                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
 //                .setFieldMatchingEnabled(true);
 
-
+        //ReplyRepositoryTests에서 사용한 방법으로 코드 변경
         Long bno = replyDTO.getBno();
         Board board = Board.builder().bno(bno).build();
 
