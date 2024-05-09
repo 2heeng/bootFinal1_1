@@ -15,22 +15,22 @@ import java.util.stream.IntStream;
 @SpringBootTest
 @Log4j2
 public class BoardServiceTests {
-    @Autowired
-    private BoardService boardService;
+//    @Autowired
+//    private BoardService boardService;
 
-    @Test
-    public void testRegister() {
-        IntStream.rangeClosed(1,100).forEach(i -> {
-            BoardDTO boardDTO = BoardDTO.builder()
-                    .title("Sample Title..."+i)
-                    .content("Sample Content..."+i)
-                    .writer("user0"+(i%10))
-                    .build();
-
-            Long bno = boardService.register(boardDTO);
-
-            log.info("bno: " + bno);
-        });
+//    @Test
+//    public void testRegister() {
+//        IntStream.rangeClosed(1,100).forEach(i -> {
+//            BoardDTO boardDTO = BoardDTO.builder()
+//                    .title("Sample Title..."+i)
+//                    .content("Sample Content..."+i)
+//                    .writer("user0"+(i%10))
+//                    .build();
+//
+//            Long bno = boardService.register(boardDTO);
+//
+//            log.info("bno: " + bno);
+//        });
 //
 //        log.info(boardService.getClass().getName());
 
@@ -43,7 +43,7 @@ public class BoardServiceTests {
 //        Long bno = boardService.register(boardDTO);
 //
 //        log.info("bno: " + bno);
-    }
+//    }
 //
 //
 //    @Test
